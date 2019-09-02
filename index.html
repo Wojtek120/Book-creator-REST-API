@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spis książek</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+<nav class="level has-background-light is-marginless">
+    <p class="level-item has-text-centered">
+        <a class="link is-info">Home</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a class="link is-info">Menu</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <img src="https://bulma.io/images/bulma-type.png" alt="" style="height: 30px;">
+    </p>
+    <p class="level-item has-text-centered">
+        <a class="link is-info">Reservations</a>
+    </p>
+    <p class="level-item has-text-centered">
+        <a class="link is-info">Contact</a>
+    </p>
+</nav>
+
+<!------------ADD NEW BOOK FORM-------------->
+<section class="hero has-background-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-white">
+                Formularz dodawania
+            </h1>
+            <h2 class="subtitle has-text-white">
+                Dodaj nową książkę
+            </h2>
+        </div>
+    </div>
+</section>
+
+
+<section class="has-background-light">
+    <div class="container">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!------------LIST OF BOOKS-------------->
+
+<section class="hero has-background-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-white">
+                Lista wszystkich ksążek
+            </h1>
+            <h2 class="subtitle has-text-white">
+                Kliknij w szczegóły aby dowiedzieć się więcej
+            </h2>
+        </div>
+    </div>
+</section>
+
+
+<section class="has-background-light">
+    <br>
+    <div class="container " id="allBooks">
+    </div>
+</section>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
