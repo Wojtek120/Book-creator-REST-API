@@ -36,7 +36,7 @@ const addBookToList = (el, bookContainer, detailsContainer, i) => {
 
     const singleBookContainer = $(`<div class="tile is-parent is-4" data-column="${i % 3}"><div class="tile is-child box"></div></div>`).appendTo(bookContainer);
     $(`<p class="title has-text-centered">${el.title}</p>`).appendTo(singleBookContainer.children());
-    $(`<p class="title has-text-centered"><button class="button is-small is-rounded is-details">Szczegóły</button><button class="button is-small is-rounded is-danger">Usuń</button></p>`).appendTo(singleBookContainer.children());
+    $(`<p class="title has-text-centered"><button class="button is-small is-rounded is-details">Szczegóły</button><button class="button is-small is-rounded is-danger" data-bookid = "${el.id}">Usuń</button></p>`).appendTo(singleBookContainer.children());
 
     const singleDetailsContainer = $(`<div class="tile is-parent is-4" data-column="${i % 3}" ><div class="tile is-child box" style="display: none"></div></div>`).appendTo(detailsContainer);
     $(`<p class="has-text-centered">Autor: ${el.author}</br>Typ: ${el.type}</br>Wydawnictwo: ${el.publisher}</br>isbn: ${el.isbn}</p>`).appendTo(singleDetailsContainer.children());
@@ -54,10 +54,46 @@ allBooksContainer.on("click", e => {
         const detailsDiv = parentDiv.parent().next();
         const detailBox = detailsDiv.children(`[data-column=${columnNumber}]`);
 
-        console.log(detailBox.children());
-
 
         detailBox.children().slideToggle();
+
+        $('html, body').animate({
+            scrollTop: detailBox.offset().top
+        }, 1000);
+    }
+
+    if(target.hasClass("is-danger")){
+        const bookId = target.data("bookid");
+        deleteBook(bookId);
     }
 });
 
+
+const addNewBookContainer = $("#addNewBookContainer");
+addNewBookContainer.on("click", e => {
+    if(e.target.tagName === "BUTTON"){
+        const newBookData = addNewBookContainer.find("input");
+        addNewBookToAPI(newBookData);
+    }
+});
+
+
+const addNewBookToAPI = bookData => {
+    $.ajax({
+        url: 'http://localhost:8282/books',
+        data: `{"title":"${bookData.eq(0).val()}", "author":"${bookData.eq(1).val()}", "type":"${bookData.eq(2).val()}", "publisher":"${bookData.eq(3).val()}", "isbn":"${bookData.eq(4).val()}"}`,
+        contentType: "application/json",
+        method: "POST"
+    }).done(function () {
+        location.reload();
+    });
+};
+
+const deleteBook = bookId => {
+    $.ajax({
+        url: "http://localhost:8282/books/" + bookId,
+        method: "DELETE"
+    }).done(function () {
+        location.reload();
+    });
+};
