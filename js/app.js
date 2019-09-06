@@ -1,15 +1,6 @@
-const fetchData = () => {
-    $.ajax({
-        "url": "http://localhost:8282/books",
-        "dataType": "json"
-    }).done(result => {
-        addBookTitles(result);
-    });
-};
-
-const allBooksContainer = $("#allBooks");
-
 const addBookTitles = dataSet => {
+    const allBooksContainer = $("#allBooks");
+
     let bookContainer =$(`<div class="tile" ></div>`);
     bookContainer.appendTo(allBooksContainer);
 
@@ -42,9 +33,7 @@ const addBookToList = (el, bookContainer, detailsContainer, i) => {
     $(`<p class="has-text-centered">Autor: ${el.author}</br>Typ: ${el.type}</br>Wydawnictwo: ${el.publisher}</br>isbn: ${el.isbn}</p>`).appendTo(singleDetailsContainer.children());
 };
 
-fetchData();
-
-allBooksContainer.on("click", e => {
+$("#allBooks").on("click", e => {
     const target = $(e.target);
 
     if(target.hasClass("is-details")){
@@ -77,6 +66,14 @@ addNewBookContainer.on("click", e => {
     }
 });
 
+const fetchData = () => {
+    $.ajax({
+        "url": "http://localhost:8282/books",
+        "dataType": "json"
+    }).done(result => {
+        addBookTitles(result);
+    });
+};
 
 const addNewBookToAPI = bookData => {
     $.ajax({
@@ -97,3 +94,5 @@ const deleteBook = bookId => {
         location.reload();
     });
 };
+
+fetchData();
